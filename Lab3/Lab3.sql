@@ -1,17 +1,79 @@
+
 -- 1. INSERT
 
 	-- 1. Без указания списка полей
+
 	INSERT INTO [cookbook]
 	VALUES
-		('The Keto Diet', 'Leanne Vogel', 200, 100000)
+		('The Keto Diet', 'Leanne Vogel', 200, 100000, '19/12/2018')
 
-	-- 2. С указанием списка полей
+	INSERT INTO [cookbook]
+	VALUES
+		('The Food Lab', 'J. Kenji Lopez-Alt', 100, 150000, '2/1/2020')
+
+	INSERT INTO [cookbook]
+	VALUES
+		('The Happy Cookbook', 'Steve Doocy', 130, 200000, '16/3/2013')
+
+	INSERT INTO [cookbook]
+	VALUES
+		('From Scratch', 'Tembi Locke', 200, 75000, '29/2/2016')
+
+	INSERT INTO [cookbook]
+	VALUES
+		('The Lost Kitchen', 'Erin French', 300, 50000, '15/7/2017')
+
+	INSERT INTO [dish]
+	VALUES
+		('Fruit salad', 'Salad', 100, 'gr')
+
+	INSERT INTO [dish]
+	VALUES
+		('Borsh', 'Soup', 250, 'ml')
+
+	INSERT INTO [dish]
+	VALUES
+		('Meatloaf', 'Snack', 100, 'gr')
+
+	INSERT INTO [dish]
+	VALUES
+		('Meatballs', 'Snack', 150, 'gr')
+
+	INSERT INTO [dish]
+	VALUES
+		('Punch', 'Drink', 100, 'ml')
+
+	INSERT INTO [recipe]
+	VALUES
+		(2, 4, 'cook', 6, 57700)
+
+	-- 2. С указание списка полей
 	INSERT INTO [product]
 		(name, type, quantity, unit, price)
 	VALUES
-		('Limon', 'Fruit', 5, 'kg', 500)
+		('Limon', 'Fruit', 5, 'kg', 200)
+	
+	INSERT INTO [product]
+		(name, type, quantity, unit, price)
+	VALUES
+		('Oringe', 'Fruit', 1, 'kg', 500)
 
-	-- 3. С чтением значения из другой таблицы
+	INSERT INTO [product]
+		(name, type, quantity, unit, price)
+	VALUES
+		('Potato', 'Vegetable', 1, 'kg', 40)
+
+	INSERT INTO [product]
+		(name, type, quantity, unit, price)
+	VALUES
+		('Vinegar', 'Liquid', 500, 'ml', 300)
+
+	INSERT INTO [product]
+		(name, type, quantity, unit, price)
+	VALUES
+		('Blackberry', 'Berry', 1, 'kg', 300)
+
+	-- 3. С чтением из другой таблицы
 	INSERT INTO [cookbook_has_dish]
 		(id_cookbook, id_dish)
 	SELECT id_cookbook, id_dish FROM [cookbook], [dish]
@@ -20,15 +82,15 @@
 -- 2. DELETE
 
 	-- 1. Всех записей
-	DELETE [product]
-
+	DELETE [recipe]
+	
 	-- 2. По условию
-	DELETE FROM [cookbook]
-	WHERE page < 500
-
+	DELETE FROM [product]
+	WHERE price < 100
+	
 	-- 3. Очистить таблицу
 	TRUNCATE TABLE [cookbook_has_dish]
-
+	
 
 -- 3. UPDATE
 
@@ -36,59 +98,59 @@
 	UPDATE [product]
 	SET name = 'Oringe',
 		quantity = 10
-
-	-- 2. По условию обновляя один атрибут
+	
+	-- 2. По условию один атрибут
 	UPDATE [cookbook]
-	SET name = 'The Food Lab',
-		author = 'J.Kenji'
-	WHERE id_cookbook = 2
-
+	SET name = 'Healing Foods',
+		author = 'Dale Pinnock'
+	WHERE id_cookbook = 1
+	
 	-- 3. По условию обновляя несколько атрибутов
 	UPDATE [product]
 	SET quantity = 1
-	WHERE quantity > 1
+	WHERE unit = 'kg'
 
 
 -- 4. SELECT
 
-	-- 1. С определенным набором извлекаемых атрибутов
+	-- 1. С определенный набором извлекаемых атрибутов
 	SELECT name, author FROM [cookbook]
-
+	
 	-- 2. Со всеми атрибутами
 	SELECT * FROM [product]
-
+	
 	-- 3. С условием по атрибуту
-	SELECT name FROM [product]
-	WHERE id_product = 3
-
+	SELECT name, price FROM [product]
+	WHERE unit = 'kg'
+	
 
 -- 5. SELECT ORDER BY + TOP (LIMIT)
 
-	-- 1. С сортировкой по возрастанию ASC + ограничение вывода количества записей
+	-- 1. С сортировкой по возрастанию ASC + огрничение вывода количества записей
 	SELECT TOP 3 * FROM [product]
 	ORDER BY price ASC
 
 	-- 2. С сортировкой по убыванию DESC
 	SELECT * FROM [product]
 	ORDER BY price DESC
-
-	-- 3. С сортировкой по двум атрибутам + ограничение вывода количества записей
+	
+	-- 3. С сортировкой по двум атрибутам + огрничение вывода количества записей
 	SELECT TOP 3 * FROM [product]
 	ORDER BY name ASC, price ASC
-
+	
 	-- 4. С сортировкой по первому атрибуту, из списка извлекаемых
 	SELECT name, author, copy FROM [cookbook]
 	ORDER BY name
-
+	
 -- 6. DATETIME 
 	
 	-- 1. WHERE по дате
 	SELECT * FROM [cookbook]
-	WHERE (release BETWEEN '1/1/2010' AND '1/1/2020')
-
+	WHERE (reliase BETWEEN '1/1/2010' AND '1/1/2020')
+	
 	-- 2. Извлечь из таблицы не всю дату, а только год. Например, год рождения автора.
-	SELECT YEAR(release) FROM [cookbook]
-
+	SELECT YEAR(reliase) FROM [cookbook]
+	
 
 -- 7. SELECT GROUP BY с функциями агрегации
 
@@ -99,7 +161,7 @@
 	-- 2. MAX
 	SELECT name, MAX(price) FROM [product]
 	GROUP BY name
-
+	
 	-- 3. AVG
 	SELECT name, AVG(price) FROM [product]
 	GROUP BY name
@@ -119,15 +181,15 @@
 	SELECT name, MIN(price) FROM [product]
 	GROUP BY name
 	HAVING MIN(price) > 200
-
+	
 	SELECT name, MAX(price) FROM [product]
 	GROUP BY name
-	HAVING MAX(price) < 400
+	HAVING MAX(price) < 300
 
 	SELECT name, AVG(price) FROM [product]
 	GROUP BY name
-	HAVING AVG(price) <= 400
-
+	HAVING AVG(price) <= 300
+	
 
 -- 9. SELECT JOIN
 
@@ -135,32 +197,32 @@
 	SELECT author, copy FROM [cookbook]
 	LEFT JOIN [product]
 	ON copy = quantity
-	WHERE copy < 25000
-
-	-- 2. RIGHT JOIN. Получить такую же выборку, как и в 5.1
+	WHERE copy < 100000
+	
+	-- 2. RIGHT JOIN. Получить такуюже выборку, как и в 5.1
 	SELECT TOP 3 id_product, product.name, type, quantity, unit, price FROM [product]
 	RIGHT JOIN [cookbook]
-	ON product.id_product = cookbook.id_cookbook + 3
+	ON id_cookbook = id_product
 	ORDER BY price ASC
 
 	-- 3. LEFT JOIN трех таблиц + WHERE по атрибуту из каждой таблицы
-	SELECT id_cookbook, complexity, price FROM [cookbook]
-	LEFT JOIN [recipe]
-	ON cookbook.id_cookbook = recipe.id_recipe
+	SELECT id_cookbook, dish.quantity, price FROM [cookbook]
+	LEFT JOIN [dish]
+	ON cookbook.id_cookbook = dish.id_dish
 	LEFT JOIN [product]
-	ON cookbook.id_cookbook = product.id_product - 3
-	WHERE id_cookbook < 10 AND complexity > 1 AND price < 500
-
+	ON cookbook.id_cookbook = product.id_product
+	WHERE id_cookbook < 10 AND dish.quantity > 100 AND price < 500
+	
 	-- 4. FULL OUTER JOIN двух таблиц
 	SELECT TOP 1 * FROM [cookbook]
-	FULL OUTER JOIN [recipe]
-	ON id_cookbook = id_recipe
+	FULL OUTER JOIN [dish]
+	ON id_cookbook = id_cookbook
 
 
 -- 10. Подзапросы
 
 	-- 1. Написать запрос с WHERE IN (подзапрос)
-	SELECT name, copy FROM [cookbook] WHERE name IN ('Fish')
-
+	SELECT name, copy, reliase FROM [cookbook] WHERE name IN ('The Food Lab')
+	
 	-- 2. Написать запрос SELECT atr1, atr2, (подзапрос) FROM ...    
-	SELECT name, copy FROM [cookbook] WHERE id_cookbook IN (SELECT id_product FROM [product])
+	SELECT name, copy, (SELECT name FROM [dish] WHERE id_cookbook = id_dish) FROM [cookbook]
