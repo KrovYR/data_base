@@ -1,7 +1,6 @@
-
 -- 1. INSERT
 
-	-- 1. Без указания списка полей
+	-- 1. Р‘РµР· СѓРєР°Р·Р°РЅРёСЏ СЃРїРёСЃРєР° РїРѕР»РµР№
 
 	INSERT INTO [cookbook]
 	VALUES
@@ -47,7 +46,7 @@
 	VALUES
 		(2, 4, 'cook', 6, 57700)
 
-	-- 2. С указание списка полей
+	-- 2. РЎ СѓРєР°Р·Р°РЅРёРµРј СЃРїРёСЃРєР° РїРѕР»РµР№
 	INSERT INTO [product]
 		(name, type, quantity, unit, price)
 	VALUES
@@ -73,7 +72,7 @@
 	VALUES
 		('Blackberry', 'Berry', 1, 'kg', 300)
 
-	-- 3. С чтением из другой таблицы
+	-- 3. РЎ С‡С‚РµРЅРёРµРј Р·РЅР°С‡РµРЅРёСЏ РёР· РґСЂСѓРіРѕР№ С‚Р°Р±Р»РёС†С‹
 	INSERT INTO [cookbook_has_dish]
 		(id_cookbook, id_dish)
 	SELECT id_cookbook, id_dish FROM [cookbook], [dish]
@@ -81,31 +80,31 @@
 
 -- 2. DELETE
 
-	-- 1. Всех записей
+	-- 1. Р’СЃРµС… Р·Р°РїРёСЃРµР№
 	DELETE [recipe]
 	
-	-- 2. По условию
+	-- 2. РџРѕ СѓСЃР»РѕРІРёСЋ
 	DELETE FROM [product]
 	WHERE price < 100
 	
-	-- 3. Очистить таблицу
+	-- 3. РћС‡РёСЃС‚РёС‚СЊ С‚Р°Р±Р»РёС†Сѓ
 	TRUNCATE TABLE [cookbook_has_dish]
 	
 
 -- 3. UPDATE
 
-	-- 1. Всех записей
+	-- 1. Р’СЃРµС… Р·Р°РїРёСЃРµР№
 	UPDATE [product]
 	SET name = 'Oringe',
 		quantity = 10
 	
-	-- 2. По условию один атрибут
+	-- 2. РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РѕРґРёРЅ Р°С‚СЂРёР±СѓС‚
 	UPDATE [cookbook]
 	SET name = 'Healing Foods',
 		author = 'Dale Pinnock'
 	WHERE id_cookbook = 1
 	
-	-- 3. По условию обновляя несколько атрибутов
+	-- 3. РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РЅРµСЃРєРѕР»СЊРєРѕ Р°С‚СЂРёР±СѓС‚РѕРІ
 	UPDATE [product]
 	SET quantity = 1
 	WHERE unit = 'kg'
@@ -113,46 +112,46 @@
 
 -- 4. SELECT
 
-	-- 1. С определенный набором извлекаемых атрибутов
+	-- 1. РЎ РѕРїСЂРµРґРµР»РµРЅРЅС‹Рј РЅР°Р±РѕСЂРѕРј РёР·РІР»РµРєР°РµРјС‹С… Р°С‚СЂРёР±СѓС‚РѕРІ
 	SELECT name, author FROM [cookbook]
 	
-	-- 2. Со всеми атрибутами
+	-- 2. РЎРѕ РІСЃРµРјРё Р°С‚СЂРёР±СѓС‚Р°РјРё
 	SELECT * FROM [product]
 	
-	-- 3. С условием по атрибуту
+	-- 3. РЎ СѓСЃР»РѕРІРёРµРј РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ
 	SELECT name, price FROM [product]
 	WHERE unit = 'kg'
 	
 
 -- 5. SELECT ORDER BY + TOP (LIMIT)
 
-	-- 1. С сортировкой по возрастанию ASC + огрничение вывода количества записей
+	-- 1. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ ASC + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 	SELECT TOP 3 * FROM [product]
 	ORDER BY price ASC
 
-	-- 2. С сортировкой по убыванию DESC
+	-- 2. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ СѓР±С‹РІР°РЅРёСЋ DESC
 	SELECT * FROM [product]
 	ORDER BY price DESC
 	
-	-- 3. С сортировкой по двум атрибутам + огрничение вывода количества записей
+	-- 3. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РґРІСѓРј Р°С‚СЂРёР±СѓС‚Р°Рј + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 	SELECT TOP 3 * FROM [product]
 	ORDER BY name ASC, price ASC
 	
-	-- 4. С сортировкой по первому атрибуту, из списка извлекаемых
+	-- 4. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РїРµСЂРІРѕРјСѓ Р°С‚СЂРёР±СѓС‚Сѓ, РёР· СЃРїРёСЃРєР° РёР·РІР»РµРєР°РµРјС‹С…
 	SELECT name, author, copy FROM [cookbook]
 	ORDER BY name
 	
 -- 6. DATETIME 
 	
-	-- 1. WHERE по дате
+	-- 1. WHERE РїРѕ РґР°С‚Рµ
 	SELECT * FROM [cookbook]
 	WHERE (reliase BETWEEN '1/1/2010' AND '1/1/2020')
 	
-	-- 2. Извлечь из таблицы не всю дату, а только год. Например, год рождения автора.
+	-- 2. РР·РІР»РµС‡СЊ РёР· С‚Р°Р±Р»РёС†С‹ РЅРµ РІСЃСЋ РґР°С‚Сѓ, Р° С‚РѕР»СЊРєРѕ РіРѕРґ. РќР°РїСЂРёРјРµСЂ, РіРѕРґ СЂРѕР¶РґРµРЅРёСЏ Р°РІС‚РѕСЂР°.
 	SELECT YEAR(reliase) FROM [cookbook]
 	
 
--- 7. SELECT GROUP BY с функциями агрегации
+-- 7. SELECT GROUP BY СЃ С„СѓРЅРєС†РёСЏРјРё Р°РіСЂРµРіР°С†РёРё
 
 	-- 1. MIN
 	SELECT name, MIN(price) FROM [product]
@@ -177,35 +176,34 @@
 
 -- 8. SELECT GROUP BY + HAVING
 
-	-- 1. Написать 3 разных запроса с использованием GROUP BY + HAVING
+	-- 1. РќР°РїРёСЃР°С‚СЊ 3 СЂР°Р·РЅС‹С… Р·Р°РїСЂРѕСЃР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј GROUP BY + HAVING
 	SELECT name, MIN(price) FROM [product]
 	GROUP BY name
 	HAVING MIN(price) > 200
 	
-	SELECT name, MAX(price) FROM [product]
-	GROUP BY name
-	HAVING MAX(price) < 300
+	SELECT id_dish FROM [dish]
+	GROUP BY id_dish
+	HAVING COUNT(*) = 1
 
-	SELECT name, AVG(price) FROM [product]
+	SELECT name FROM [cookbook]
 	GROUP BY name
-	HAVING AVG(price) <= 300
-	
+	HAVING SUM(page) >= 200
 
 -- 9. SELECT JOIN
 
-	-- 1. LEFT JOIN двух таблиц и WHERE по одному из атрибутов
+	-- 1. LEFT JOIN РґРІСѓС… С‚Р°Р±Р»РёС† Рё WHERE РїРѕ РѕРґРЅРѕРјСѓ РёР· Р°С‚СЂРёР±СѓС‚РѕРІ
 	SELECT author, copy FROM [cookbook]
 	LEFT JOIN [product]
 	ON copy = quantity
 	WHERE copy < 100000
 	
-	-- 2. RIGHT JOIN. Получить такуюже выборку, как и в 5.1
-	SELECT TOP 3 id_product, product.name, type, quantity, unit, price FROM [product]
+	-- 2. RIGHT JOIN. РџРѕР»СѓС‡РёС‚СЊ С‚Р°РєСѓСЋ Р¶Рµ РІС‹Р±РѕСЂРєСѓ, РєР°Рє Рё РІ 9.1
+	SELECT author, copy FROM [product]
 	RIGHT JOIN [cookbook]
-	ON id_cookbook = id_product
-	ORDER BY price ASC
+	ON quantity = copy
+	WHERE copy < 100000
 
-	-- 3. LEFT JOIN трех таблиц + WHERE по атрибуту из каждой таблицы
+	-- 3. LEFT JOIN С‚СЂРµС… С‚Р°Р±Р»РёС† + WHERE РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ РёР· РєР°Р¶РґРѕР№ С‚Р°Р±Р»РёС†С‹
 	SELECT id_cookbook, dish.quantity, price FROM [cookbook]
 	LEFT JOIN [dish]
 	ON cookbook.id_cookbook = dish.id_dish
@@ -213,16 +211,16 @@
 	ON cookbook.id_cookbook = product.id_product
 	WHERE id_cookbook < 10 AND dish.quantity > 100 AND price < 500
 	
-	-- 4. FULL OUTER JOIN двух таблиц
+	-- 4. FULL OUTER JOIN РґРІСѓС… С‚Р°Р±Р»РёС†
 	SELECT TOP 1 * FROM [cookbook]
 	FULL OUTER JOIN [dish]
 	ON id_cookbook = id_cookbook
 
 
--- 10. Подзапросы
+-- 10. РџРѕРґР·Р°РїСЂРѕСЃС‹
 
-	-- 1. Написать запрос с WHERE IN (подзапрос)
+	-- 1. РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ СЃ WHERE IN (РїРѕРґР·Р°РїСЂРѕСЃ)
 	SELECT name, copy, reliase FROM [cookbook] WHERE name IN ('The Food Lab')
 	
-	-- 2. Написать запрос SELECT atr1, atr2, (подзапрос) FROM ...    
+	-- 2. РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ SELECT atr1, atr2, (РїРѕРґР·Р°РїСЂРѕСЃ) FROM ...
 	SELECT name, copy, (SELECT name FROM [dish] WHERE id_cookbook = id_dish) FROM [cookbook]
