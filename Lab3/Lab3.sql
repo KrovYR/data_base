@@ -177,7 +177,7 @@
 -- 8. SELECT GROUP BY + HAVING
 
 	-- 1. Написать 3 разных запроса с использованием GROUP BY + HAVING
-	SELECT name, MIN(price) FROM [product]
+	SELECT name FROM [product]
 	GROUP BY name
 	HAVING MIN(price) > 200
 	
