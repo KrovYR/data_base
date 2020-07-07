@@ -181,13 +181,20 @@
 	GROUP BY name
 	HAVING MIN(price) > 200
 	
-	SELECT id_dish FROM [dish]
-	GROUP BY id_dish
-	HAVING COUNT(*) = 1
+	SELECT dish.name FROM [dish], [recipe]
+	WHERE dish.id_dish = recipe.id_dish
+	GROUP BY dish.name
+	HAVING COUNT(recipe.id_dish) > 1
 
-	SELECT name FROM [cookbook]
-	GROUP BY name
-	HAVING SUM(page) >= 200
+	SELECT dish.name, recipe.id_recipe FROM [dish], [recipe]
+	WHERE dish.id_dish = recipe.id_dish
+	GROUP BY dish.name, recipe.id_recipe
+	HAVING MAX(recipe.portion) = 10
+
+	SELECT cookbook.name FROM [cookbook], [cookbook_has_dish]
+	WHERE cookbook.id_cookbook = cookbook_has_dish.id_cookbook
+	GROUP BY cookbook.name
+	HAVING COUNT(cookbook_has_dish.id_dish) = 2
 
 -- 9. SELECT JOIN
 
